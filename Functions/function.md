@@ -1470,3 +1470,344 @@ Flow:
 **`printf()` displays the value to the user.**
 
 That's the fundamental difference.
+
+
+Think of a function like a **machine**:
+
+```text
+                 FUNCTION
+                    │
+        ┌───────────┴───────────┐
+        ↓                       ↓
+     INPUT                    OUTPUT
+   Parameter                  Return
+```
+
+The confusing part is **parameter vs argument**. They are closely related, but they are not the same.
+
+---
+
+## 1. Parameter
+
+A **parameter** is the variable written **inside the function definition**.
+
+Example:
+
+```c
+int add(int a, int b)
+{
+    return a + b;
+}
+```
+
+Here:
+
+```c
+int a
+int b
+```
+
+are **parameters**.
+
+They are like empty boxes waiting to receive values.
+
+```text
+int add(int a, int b)
+             ↑     ↑
+          parameter parameter
+```
+
+---
+
+## 2. Argument
+
+An **argument** is the actual value you give to the function **when calling it**.
+
+```c
+int result = add(10, 20);
+```
+
+Here:
+
+```c
+add(10, 20);
+    ↑   ↑
+    │   │
+ argument argument
+```
+
+So:
+
+```text
+Parameter                  Argument
+─────────                  ────────
+a                          10
+b                          20
+```
+
+The values are passed like this:
+
+```text
+a ← 10
+b ← 20
+```
+
+---
+
+# 3. Return Type
+
+The **return type** tells us what type of value the function sends back.
+
+Look at:
+
+```c
+int add(int a, int b)
+```
+
+The first `int` is the **return type**:
+
+```text
+int add(int a, int b)
+↑
+Return type
+```
+
+It means:
+
+> This function will return an `int` value.
+
+And:
+
+```c
+return a + b;
+```
+
+actually sends the value back.
+
+For:
+
+```c
+add(10, 20)
+```
+
+the function calculates:
+
+```text
+10 + 20 = 30
+```
+
+and:
+
+```c
+return 30;
+```
+
+sends `30` back.
+
+---
+
+# 4. All three together
+
+Look at this one function:
+
+```c
+int add(int a, int b)
+{
+    return a + b;
+}
+```
+
+### Function definition
+
+```text
+int add(int a, int b)
+↑       ↑        ↑
+│       │        │
+│       └────────┴── Parameters
+│
+└── Return type
+```
+
+Then call it:
+
+```c
+int result = add(10, 20);
+                    ↑   ↑
+                    │   │
+                 Arguments
+```
+
+Complete flow:
+
+```text
+                    add()
+                     │
+        ┌────────────┴────────────┐
+        ↓                         ↓
+    argument                    argument
+       10                          20
+        │                           │
+        ↓                           ↓
+   parameter a                parameter b
+        │                           │
+        └────────────┬──────────────┘
+                     ↓
+                  a + b
+                     ↓
+                    30
+                     ↓
+                  return
+                     ↓
+                  result
+                     ↓
+                    30
+```
+
+---
+
+# 5. Your `getUsn()` example
+
+You had:
+
+```c
+int getUsn(int Usn)
+{
+    return Usn;
+}
+```
+
+Here:
+
+```c
+int
+```
+
+is the **return type**.
+
+```c
+int getUsn(int Usn)
+            ↑
+         parameter
+```
+
+Then:
+
+```c
+getUsn(101);
+       ↑
+    argument
+```
+
+So:
+
+```text
+Return type → int
+Parameter   → Usn
+Argument    → 101
+```
+
+Flow:
+
+```text
+getUsn(101)
+    ↓
+Usn = 101
+    ↓
+return Usn
+    ↓
+return 101
+```
+
+---
+
+# 6. Another example
+
+```c
+float calculateAverage(int total, int count)
+{
+    return (float)total / count;
+}
+```
+
+Here:
+
+```text
+float
+  ↑
+Return type
+
+total
+  ↑
+Parameter
+
+count
+  ↑
+Parameter
+```
+
+Calling:
+
+```c
+float avg = calculateAverage(450, 5);
+```
+
+Here:
+
+```text
+450 → Argument
+  5 → Argument
+```
+
+The function receives:
+
+```text
+total = 450
+count = 5
+```
+
+Then:
+
+```text
+450 / 5 = 90
+```
+
+and returns:
+
+```text
+90.0
+```
+
+---
+
+# ⭐ Remember this simple rule
+
+```text
+PARAMETER = Variable in function definition
+
+ARGUMENT = Actual value in function call
+
+RETURN TYPE = Type of value function gives back
+```
+
+### Example:
+
+```c
+int add(int a, int b)
+{
+    return a + b;
+}
+
+int result = add(10, 20);
+```
+
+| Part         | Meaning                   | Example    |
+| ------------ | ------------------------- | ---------- |
+| Return type  | Type function returns     | `int`      |
+| Parameters   | Variables receiving input | `a`, `b`   |
+| Arguments    | Actual values passed      | `10`, `20` |
+| Return value | Actual value sent back    | `30`       |
+
+**One sentence to memorize:**
+
+> **Arguments are the values you give, parameters are the variables that receive them, and the return type tells what type of value comes back.**
+

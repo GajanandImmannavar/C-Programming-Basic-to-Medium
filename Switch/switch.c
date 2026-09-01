@@ -207,31 +207,31 @@
 // For example, checking weekdays vs weekend:
 
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int main()
-{   
-    int Day = 6;
+// int main()
+// {   
+//     int Day = 6;
 
-    switch (Day)
-    {
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-        printf("Weeak Day\n");
-        break;
-    case 6:
-    case 7:
-        printf("Weekend!!\n");
-        break;
+//     switch (Day)
+//     {
+//     case 1:
+//     case 2:
+//     case 3:
+//     case 4:
+//     case 5:
+//         printf("Weeak Day\n");
+//         break;
+//     case 6:
+//     case 7:
+//         printf("Weekend!!\n");
+//         break;
     
-    default:
-        break;
-    }
-    return 0;
-}
+//     default:
+//         break;
+//     }
+//     return 0;
+// }
 
 
 // If day is 6:
@@ -384,3 +384,50 @@ int main()
 // 4. Exit
 
 // Use switch to implement the menu.
+
+
+
+#include <stdio.h>
+
+int main()
+{ 
+    int Manu;
+    printf("Dishes and Ingreadints\n");
+    printf("1: Tomato Bath\n 2: Eggrice\n 3: Rice\n 4: Sanbar\n");
+
+    printf("Enter Number to Get ingredints of Dish: ");
+
+    scanf("%d",&Manu);
+
+    switch(Manu)
+    {
+        case 1:
+
+        printf("Dish Name: Tomato Bath\n Ingredints: 1 Tomato, 2 Onino, 3 Oli, 4 Girige, 5 Ginger\n");
+
+        break;
+
+        case 2:
+
+        printf("1 Egg, 2 Rice\n");
+
+        break;
+
+        case 3:
+
+        printf("1 Rice, 2 Solt\n ");
+
+        break;
+
+        case 4:
+
+        printf("1 Oli, 2 Girige, 3 Ginger(balloli), 4 Chilli\n");
+
+        break;
+
+        default:
+
+        printf("Invalid Cholice\n");
+    }
+    return 0;
+}

@@ -1811,3 +1811,712 @@ int result = add(10, 20);
 
 > **Arguments are the values you give, parameters are the variables that receive them, and the return type tells what type of value comes back.**
 
+
+
+
+# 🔵 Day 2 → Topic 2: Parameters & Arguments in C
+
+Parameters and arguments are used when we want to **send data to a function**.
+
+---
+
+## 1. Why Do We Need Parameters?
+
+Consider:
+
+```c
+void greet()
+{
+    printf("Hello Gajanand");
+}
+```
+
+This function can only print one fixed name.
+
+What if we want:
+
+```text
+Hello Gajanand
+Hello Rahul
+Hello Priya
+```
+
+Instead of creating three functions, we can pass the name to one function.
+
+```c
+void greet(char name[])
+{
+    printf("Hello %s", name);
+}
+```
+
+Now:
+
+```c
+greet("Gajanand");
+greet("Rahul");
+greet("Priya");
+```
+
+---
+
+# 2. What Is a Parameter?
+
+A **parameter** is a variable written inside the function's parentheses.
+
+```c
+int add(int a, int b)
+```
+
+Here:
+
+```text
+a → parameter
+b → parameter
+```
+
+They receive data when the function is called.
+
+---
+
+# 3. What Is an Argument?
+
+An **argument** is the actual value passed to the function when calling it.
+
+```c
+add(10, 20);
+```
+
+Here:
+
+```text
+10 → argument
+20 → argument
+```
+
+So:
+
+```text
+Function definition:
+
+int add(int a, int b)
+             ↑     ↑
+         parameters
+
+
+Function call:
+
+add(10, 20)
+    ↑   ↑
+ arguments
+```
+
+### Easy way to remember
+
+> **Parameter = placeholder**
+> **Argument = actual value**
+
+---
+
+# 4. Simple Example
+
+```c
+#include <stdio.h>
+
+void greet(char name[])
+{
+    printf("Hello %s\n", name);
+}
+
+int main()
+{
+    greet("Gajanand");
+    greet("Rahul");
+
+    return 0;
+}
+```
+
+Output:
+
+```text
+Hello Gajanand
+Hello Rahul
+```
+
+Flow:
+
+```text
+greet("Gajanand")
+       ↓
+name = "Gajanand"
+       ↓
+printf()
+
+greet("Rahul")
+       ↓
+name = "Rahul"
+       ↓
+printf()
+```
+
+---
+
+# 5. Multiple Parameters
+
+A function can have multiple parameters.
+
+```c
+int add(int a, int b)
+{
+    return a + b;
+}
+```
+
+Call:
+
+```c
+int result = add(10, 20);
+```
+
+Flow:
+
+```text
+add(10, 20)
+    ↓
+a = 10
+b = 20
+    ↓
+a + b
+    ↓
+30
+```
+
+---
+
+# 6. Parameter Order Matters ⭐
+
+Consider:
+
+```c
+int subtract(int a, int b)
+{
+    return a - b;
+}
+```
+
+Calling:
+
+```c
+subtract(10, 5);
+```
+
+means:
+
+```text
+a = 10
+b = 5
+
+10 - 5
+= 5
+```
+
+But:
+
+```c
+subtract(5, 10);
+```
+
+means:
+
+```text
+a = 5
+b = 10
+
+5 - 10
+= -5
+```
+
+So arguments are matched **in order**.
+
+```text
+First argument  → first parameter
+Second argument → second parameter
+Third argument  → third parameter
+```
+
+---
+
+# 7. Different Data Types
+
+Parameters don't have to be `int`.
+
+### `float`
+
+```c
+float multiply(float a, float b)
+{
+    return a * b;
+}
+```
+
+### `char`
+
+```c
+void display(char ch)
+{
+    printf("%c", ch);
+}
+```
+
+### `double`
+
+```c
+double square(double x)
+{
+    return x * x;
+}
+```
+
+---
+
+# 8. Parameters + Return Value ⭐
+
+This is one of the most important function patterns.
+
+```c
+int square(int number)
+{
+    return number * number;
+}
+```
+
+Call:
+
+```c
+int result = square(5);
+```
+
+Flow:
+
+```text
+square(5)
+   ↓
+number = 5
+   ↓
+5 × 5
+   ↓
+return 25
+   ↓
+result = 25
+```
+
+---
+
+# 9. Parameters Without Return
+
+A function can accept data without returning anything.
+
+```c
+void printNumber(int number)
+{
+    printf("%d", number);
+}
+```
+
+Call:
+
+```c
+printNumber(10);
+```
+
+Output:
+
+```text
+10
+```
+
+---
+
+# 10. No Parameters + Return Value
+
+A function can also return a value without receiving parameters.
+
+```c
+int getNumber()
+{
+    return 100;
+}
+```
+
+Call:
+
+```c
+int number = getNumber();
+```
+
+---
+
+# 11. The Four Function Forms
+
+You should memorize these patterns:
+
+### 1. No parameters, no return
+
+```c
+void greet()
+{
+    printf("Hello");
+}
+```
+
+### 2. Parameters, no return
+
+```c
+void printNumber(int n)
+{
+    printf("%d", n);
+}
+```
+
+### 3. No parameters, return value
+
+```c
+int getNumber()
+{
+    return 10;
+}
+```
+
+### 4. Parameters + return value ⭐
+
+```c
+int add(int a, int b)
+{
+    return a + b;
+}
+```
+
+---
+
+# 12. Important Concept: Local Copies
+
+For ordinary parameters such as `int`, `float`, and `char`, the function receives its own parameter value.
+
+Example:
+
+```c
+#include <stdio.h>
+
+void change(int x)
+{
+    x = 100;
+}
+
+int main()
+{
+    int number = 10;
+
+    change(number);
+
+    printf("%d", number);
+
+    return 0;
+}
+```
+
+Output:
+
+```text
+10
+```
+
+Why?
+
+```text
+main()
+
+number = 10
+   ↓
+change(number)
+   ↓
+x = 10
+   ↓
+x = 100
+
+But original:
+number = 10
+```
+
+Changing `x` does not change `number`.
+
+This is commonly called **pass by value**.
+
+Pointers later will show you how to modify the caller's object through its address.
+
+---
+
+# 13. Example: Swap Doesn't Work Normally
+
+This is a very important concept before learning pointers.
+
+```c
+#include <stdio.h>
+
+void swap(int a, int b)
+{
+    int temp;
+
+    temp = a;
+    a = b;
+    b = temp;
+}
+
+int main()
+{
+    int x = 10;
+    int y = 20;
+
+    swap(x, y);
+
+    printf("%d %d", x, y);
+
+    return 0;
+}
+```
+
+Output:
+
+```text
+10 20
+```
+
+The values inside `swap()` were exchanged, but the original `x` and `y` were not changed.
+
+Later, with pointers:
+
+```text
+x, y
+ ↓
+addresses
+ ↓
+swap using pointers
+ ↓
+original values change
+```
+
+---
+
+# 14. Argument Type Conversion
+
+C can perform conversions when argument types don't exactly match, subject to the function declaration and the usual conversion rules.
+
+Example:
+
+```c
+#include <stdio.h>
+
+void display(float number)
+{
+    printf("%.2f", number);
+}
+
+int main()
+{
+    display(10);
+
+    return 0;
+}
+```
+
+The integer `10` is converted to a floating-point value for the parameter.
+
+Output:
+
+```text
+10.00
+```
+
+---
+
+# 15. Too Few or Too Many Arguments
+
+Suppose:
+
+```c
+int add(int a, int b)
+{
+    return a + b;
+}
+```
+
+Correct:
+
+```c
+add(10, 20);
+```
+
+Incorrect:
+
+```c
+add(10);
+```
+
+or:
+
+```c
+add(10, 20, 30);
+```
+
+With a proper prototype, the compiler can diagnose incorrect argument counts.
+
+---
+
+# 16. Function Prototype with Parameters
+
+If the function is defined after `main()`, declare it first:
+
+```c
+#include <stdio.h>
+
+int add(int a, int b);
+
+int main()
+{
+    int result = add(10, 20);
+
+    printf("%d", result);
+
+    return 0;
+}
+
+int add(int a, int b)
+{
+    return a + b;
+}
+```
+
+Notice:
+
+```c
+int add(int a, int b);
+```
+
+This is the **function declaration/prototype**.
+
+---
+
+# 17. Practice Programs 🧪
+
+Write these yourself.
+
+### Basic
+
+1. Function that accepts a number and prints it.
+2. Function that accepts two numbers and prints their sum.
+3. Function that accepts two numbers and prints their difference.
+4. Function that accepts two numbers and returns multiplication.
+5. Function that accepts a number and returns its square.
+
+### Logic
+
+6. `isEven(int n)`
+7. `isPositive(int n)`
+8. `maximum(int a, int b)`
+9. `maximum(int a, int b, int c)`
+10. `factorial(int n)`
+11. `isPrime(int n)`
+12. `reverseNumber(int n)`
+13. `isPalindrome(int n)`
+14. `sumDigits(int n)`
+15. `countDigits(int n)`
+
+### ⭐ Important Challenge
+
+Create:
+
+```c
+int calculator(int a, int b, char operator)
+```
+
+It should handle:
+
+```text
++ 
+-
+*
+/
+```
+
+Example:
+
+```c
+int result = calculator(10, 5, '+');
+```
+
+Expected:
+
+```text
+15
+```
+
+---
+
+# 🧠 Remember
+
+```text
+Parameter
+   ↓
+Variable in function definition
+
+Argument
+   ↓
+Actual value passed during function call
+```
+
+Example:
+
+```c
+int add(int a, int b)
+        ↑       ↑
+    parameters
+
+
+add(10, 20);
+    ↑    ↑
+ arguments
+```
+
+And:
+
+```text
+Normal int/float/char parameter
+        ↓
+     pass by value
+        ↓
+Function receives a value
+```
+
+This distinction becomes **very important when we reach pointers on Day 3**.
+
+---
+
+### ✅ Day 2 Progress
+
+```text
+✓ Functions
+✓ Declaration
+✓ Definition
+✓ Function call
+✓ Parameters & Arguments
+
+→ Return
+→ Scope
+→ Arrays
+→ Array Operations
+→ Array Problems
+→ 2D Arrays
+→ Strings
+```
+
+**Next → Day 2, Topic 3: `return` — returning values from functions and understanding exactly how `return` works.**

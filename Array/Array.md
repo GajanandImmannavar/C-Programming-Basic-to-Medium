@@ -710,3 +710,360 @@ int arr[5] = {10, 20, 30, 40, 50};
 
 ---
 
+Yes — this is an important distinction. The reason is **how arrays work with `scanf()`**.
+
+### 1. Normal variable → use `&`
+
+Suppose:
+
+```c
+int age;
+scanf("%d", &age);
+```
+
+Here `age` is a **single variable**.
+
+Think:
+
+```text
+age
+┌───────┐
+│  25   │
+└───────┘
+   ↑
+ address of age = &age
+```
+
+`scanf()` needs the **address where it should store the input**, so we give `&age`.
+
+---
+
+### 2. Character array → usually DON'T use `&`
+
+```c
+char name[10];
+scanf("%s", name);
+```
+
+Here `name` is an **array**.
+
+An array already represents the address of its **first element** in most expressions.
+
+```text
+name[0]   name[1]   name[2]   name[3]
+┌───────┬───────┬───────┬───────┐
+│   G   │   a   │   j   │   a   │ ...
+└───────┴───────┴───────┴───────┘
+    ↑
+   name
+   = address of name[0]
+```
+
+So:
+
+```c
+scanf("%s", name);
+```
+
+means roughly:
+
+```text
+name
+ ↓
+address of name[0]
+ ↓
+scanf stores characters starting here
+```
+
+That's why we don't need `&`.
+
+---
+
+### 3. But why do we use `&Array[i]`?
+
+This is the part that causes confusion.
+
+Suppose:
+
+```c
+int Array[10];
+```
+
+If you want to input one element:
+
+```c
+scanf("%d", &Array[i]);
+```
+
+Why `&`?
+
+Because `Array[i]` is a **single integer variable**.
+
+For example:
+
+```text
+Array[0]    Array[1]    Array[2]
+┌─────────┬─────────┬─────────┐
+│   10    │   20    │   30    │
+└─────────┴─────────┴─────────┘
+     ↑
+   Array[0]
+```
+
+`Array[0]` behaves like a normal `int` variable.
+
+Therefore:
+
+```c
+scanf("%d", &Array[0]);
+```
+
+Just like:
+
+```c
+int age;
+scanf("%d", &age);
+```
+
+---
+
+### The rule to remember 🧠
+
+| What you're passing     | `scanf()`   |
+| ----------------------- | ----------- |
+| Normal `int` variable   | `&age`      |
+| Normal `float` variable | `&salary`   |
+| Normal `char` variable  | `&grade`    |
+| `int` array element     | `&Array[i]` |
+| `char` array/string     | `name`      |
+
+So the key difference is:
+
+```text
+name
+ ↓
+already gives address of first character
+
+Array[i]
+ ↓
+is one actual int value
+ ↓
+need & to get its address
+```
+
+### Very important
+
+Don't think:
+
+> "Arrays never use `&`."
+
+Instead think:
+
+> **The array name itself usually gives the address of its first element, but an individual array element is a normal variable, so we use `&` for it.**
+
+For example:
+
+```c
+char name[10];
+
+scanf("%s", name);       // ✅
+scanf("%s", &name);      // ❌ not the correct type for %s
+```
+
+but:
+
+```c
+int numbers[10];
+
+scanf("%d", &numbers[0]); // ✅
+scanf("%d", numbers);     // also works for the first element, but less clear
+```
+
+For learning, remember **`&Array[i]`** for integer array input.
+
+
+
+Absolutely. Since you are currently learning **arrays + loops + functions**, let's keep the problems strictly within those topics.
+
+### 🟢 Level 1 — Basic Array Practice
+
+1. **Input and Display**
+
+   * Take `N` elements from the user.
+   * Store them in an array.
+   * Print all elements.
+
+2. **Print Array in Reverse**
+
+   * Input `N` elements.
+   * Print them from last element to first.
+
+3. **Find Sum of Array**
+
+   * Input `N` elements.
+   * Find and print the sum.
+
+4. **Find Average**
+
+   * Input `N` elements.
+   * Calculate and print the average.
+
+5. **Count Even Numbers**
+
+   * Input an array.
+   * Count how many elements are even.
+
+6. **Count Odd Numbers**
+
+   * Input an array.
+   * Count how many elements are odd.
+
+7. **Print Even Elements**
+
+   * Input an array.
+   * Print only the even numbers.
+
+8. **Print Odd Elements**
+
+   * Input an array.
+   * Print only the odd numbers.
+
+---
+
+### 🟡 Level 2 — Functions + Arrays
+
+For these, **use a separate function** for the operation.
+
+9. **Find Maximum**
+
+   ```text
+   Input: 10 25 7 40 15
+   Output: Maximum = 40
+   ```
+
+10. **Find Minimum**
+
+```text
+Input: 10 25 7 40 15
+Output: Minimum = 7
+```
+
+11. **Calculate Sum Using Function**
+
+* Pass the array and size to a function.
+* Function returns the sum.
+
+12. **Count Even Numbers Using Function**
+
+* Function receives the array and size.
+* Function returns the count.
+
+13. **Count Odd Numbers Using Function**
+
+* Function receives the array and size.
+* Function returns the count.
+
+14. **Search an Element**
+
+```text
+Array: 10 20 30 40 50
+Search: 30
+
+Output: Element Found
+```
+
+15. **Find Number of Occurrences**
+
+```text
+Array: 10 20 10 30 10 40
+Search: 10
+
+Output: 10 occurs 3 times
+```
+
+---
+
+### 🟠 Level 3 — Good Beginner DSA Practice
+
+16. **Find Second Largest Element**
+
+17. **Find Second Smallest Element**
+
+18. **Copy One Array into Another**
+
+```text
+Array1 → 10 20 30 40
+Array2 → 10 20 30 40
+```
+
+19. **Compare Two Arrays**
+
+* Check whether two arrays contain the same elements in the same order.
+
+20. **Reverse an Array**
+
+* Actually modify the array.
+* Then print the reversed array.
+
+21. **Replace All Negative Numbers with 0**
+
+```text
+Input: 10 -5 20 -3 7
+Output: 10 0 20 0 7
+```
+
+22. **Find Positive, Negative and Zero Count**
+
+```text
+Input: 10 -5 0 20 -3 0
+
+Positive = 2
+Negative = 2
+Zero = 2
+```
+
+23. **Find Largest and Smallest Together**
+
+* Find both using a single loop.
+
+24. **Check Whether Array is Sorted**
+
+```text
+10 20 30 40 50 → Sorted
+10 30 20 40 50 → Not Sorted
+```
+
+### 🎯 Recommended order for you
+
+Don't jump directly to difficult ones. Practice in this order:
+
+```text
+1  → Input & Display
+2  → Reverse
+3  → Sum
+4  → Average
+5  → Count Even
+6  → Count Odd
+7  → Print Even
+8  → Print Odd
+        ↓
+9  → Maximum
+10 → Minimum
+11 → Sum using Function
+12 → Count Even using Function
+13 → Count Odd using Function
+14 → Search
+15 → Occurrences
+        ↓
+16 → Second Largest
+17 → Second Smallest
+18 → Copy
+19 → Compare
+20 → Reverse/Modify
+21 → Replace Negative
+22 → Positive/Negative/Zero Count
+23 → Max + Min
+24 → Sorted Check
+```
+
+**For now, start with #1.** Try writing it yourself without autocomplete. If you get an error, paste your code and I'll explain **exactly where your logic went wrong** rather than giving you the answer immediately.

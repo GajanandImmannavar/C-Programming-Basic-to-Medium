@@ -327,36 +327,94 @@
 
 // Maximum Element of Array
 
+// #include <stdio.h>
+
+// int Maximum(int Array[10])
+// {
+   
+//     int Max =Array[0];
+
+//     for(int i=0; i<10; i++)
+//     {
+//         if(Array[i]>Max)
+//         {
+//             Max = Array[i];
+            
+//         }
+//     }
+//     return Max;
+// }
+
+//     int main()
+
+// {
+
+//     int Arr[10]= {1,2,3,4,5,6,7,8,-9,0};
+
+//     int result = Maximum(Arr);
+
+//     printf("Maximum Element of Array is %d", result);
+
+//     printf("\n");
+
+//    return 0;
+
+// }
+
+
+// Minimum Element in the Array
+
 #include <stdio.h>
 
-int Maximum(int Array[10])
-{
-   
-    int Max =Array[0];
+    int Minimum(int Array[10])
+    { 
+        int minimum = Array[0];
 
-    for(int i=0; i<10; i++)
-    {
-        if(Array[i]>Max)
+        for(int i=0; i<10; i++)
         {
-            Max = Array[i];
-            
+            if (Array[i]< minimum)
+            {
+              minimum = Array[i];
+            }
         }
+
+     return minimum;
     }
-    return Max;
-}
 
     int main()
+    {
+        int Arra[10]={-1,0,-2,5,6,9,0,-19,0,-100};
+        
+        printf("Original Elements Are: ");
+        for(int i=0; i<10; i++)
+        {
+            printf("%d\n",Arra[i]);
+        }
 
-{
+        int result = Minimum(Arra);
 
-    int Arr[10]= {1,2,3,4,5,6,7,8,-9,0};
+        printf("Minimum Element of Array is: %d",result);
 
-    int result = Maximum(Arr);
+        printf("\n");
 
-    printf("Maximum Element of Array is %d", result);
+        return 0;
+    }
 
-    printf("\n");
 
-   return 0;
 
-}
+//     Trace of your logic
+// minimum = -1
+
+// 0 < -1?      NO
+// -2 < -1?     YES → minimum = -2
+// 5 < -2?      NO
+// 6 < -2?      NO
+// 9 < -2?      NO
+// 0 < -2?      NO
+// -19 < -2?    YES → minimum = -19
+// 0 < -19?     NO
+// -100 < -19?  YES → minimum = -100
+
+// 🎯 Final answer = -100
+
+    

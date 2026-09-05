@@ -339,3 +339,80 @@ x  → value stored in x → 100
 ```
 
 Next topic is **2️⃣ Pointers — understanding `*` and `&` properly**, where we'll create our first pointer and trace exactly what happens in memory.
+
+
+A pointer is a **special type of variable that stores the memory address of another variable**.
+
+But one correction:
+
+> A pointer is not automatically created by the compiler. **The programmer declares the pointer**, and the compiler allocates memory for it.
+
+### Normal variable
+
+```c
+int age = 22;
+```
+
+Here:
+
+```text
+age → stores a value → 22
+```
+
+### Pointer variable
+
+```c
+int *ptr = &age;
+```
+
+Here:
+
+```text
+ptr → stores an address → address of age
+```
+
+Diagram:
+
+```text
+age
+┌─────────┐
+│   22    │
+└─────────┘
+    ▲
+    │ address
+    │
+ptr
+┌─────────┐
+│ &age    │
+└─────────┘
+```
+
+### Meaning of each part
+
+```c
+int *ptr = &age;
+```
+
+| Part   | Meaning                      |
+| ------ | ---------------------------- |
+| `int`  | Pointer points to an integer |
+| `*ptr` | Declares `ptr` as a pointer  |
+| `ptr`  | Name of the pointer variable |
+| `&age` | Address of `age`             |
+| `=`    | Stores that address in `ptr` |
+
+### Important difference
+
+```text
+Normal variable → stores a value
+
+Pointer variable → stores an address
+```
+
+Both are variables declared by the programmer, but they store different kinds of information.
+
+Also, the compiler manages memory allocation internally, but **you decide whether to declare a normal variable or a pointer**.
+
+So your corrected statement is:
+
+> **A pointer is a programmer-declared special variable that stores the address of another variable.**

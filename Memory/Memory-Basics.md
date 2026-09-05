@@ -336,9 +336,9 @@ x
 x  → value stored in x → 100
 
 &x → address of x
-```
+<!-- ```
 
-Next topic is **2️⃣ Pointers — understanding `*` and `&` properly**, where we'll create our first pointer and trace exactly what happens in memory.
+Next topic is **2️⃣ Pointers — understanding `*` and `&` properly**, where we'll create our first pointer and trace exactly what happens in memory. -->
 
 
 A pointer is a **special type of variable that stores the memory address of another variable**.

@@ -1136,3 +1136,260 @@ printf("%d", Length);
 **Tell me the output and why.**
 
 After you answer, we'll move to **`strcpy()`**.
+
+## Next String Function: `strcat()`
+
+`strcat()` means **String Concatenation**.
+
+It is used to **join one string at the end of another string**.
+
+### Header file
+
+```c
+#include <string.h>
+```
+
+### Syntax
+
+```c
+strcat(destination, source);
+```
+
+It means:
+
+```text
+destination + source → destination
+```
+
+### Example
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char FirstName[30] = "Gajanand";
+    char LastName[] = " Immannavar";
+
+    strcat(FirstName, LastName);
+
+    printf("%s", FirstName);
+
+    return 0;
+}
+```
+
+### Output
+
+```text
+Gajanand Immannavar
+```
+
+### How it works
+
+Before `strcat()`:
+
+```text
+FirstName: Gajanand\0
+LastName:  Immannavar\0
+```
+
+After:
+
+```c
+strcat(FirstName, LastName);
+```
+
+```text
+FirstName: Gajanand Immannavar\0
+```
+
+The source string is added **after the existing characters** of the destination.
+
+### Important rule
+
+The destination must have enough space for both strings and `'\0'`.
+
+```c
+char FirstName[30] = "Gajanand";
+```
+
+This is safe for the example because the array has enough capacity.
+
+But this is unsafe:
+
+```c
+char FirstName[10] = "Gajanand";
+char LastName[] = " Immannavar";
+
+strcat(FirstName, LastName);   // ❌ Not enough space
+```
+
+### `strcpy()` vs `strcat()`
+
+| Function   | Purpose                               |
+| ---------- | ------------------------------------- |
+| `strcpy()` | Replaces destination with source      |
+| `strcat()` | Adds source at the end of destination |
+
+Example:
+
+```c
+strcpy(A, B);
+```
+
+```text
+A becomes B
+```
+
+```c
+strcat(A, B);
+```
+
+```text
+A becomes A + B
+```
+
+### Practice
+
+What will be the output?
+
+```c
+char A[30] = "Hello";
+char B[] = " World";
+
+strcat(A, B);
+
+printf("%s", A);
+```
+
+Also remember: `strcat()` modifies the **destination string**, not the source string.
+
+## Next String Function: `strcmp()`
+
+`strcmp()` means **String Compare**.
+
+It is used to **compare two strings**.
+
+### Header file
+
+```c
+#include <string.h>
+```
+
+### Syntax
+
+```c
+strcmp(String1, String2);
+```
+
+It returns an **integer**:
+
+| Result | Meaning                      |
+| -----: | ---------------------------- |
+|    `0` | Both strings are equal       |
+|  `< 0` | String1 comes before String2 |
+|  `> 0` | String1 comes after String2  |
+
+### Example 1 — Equal strings
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char A[] = "Hello";
+    char B[] = "Hello";
+
+    int Result = strcmp(A, B);
+
+    printf("%d", Result);
+
+    return 0;
+}
+```
+
+Output:
+
+```text
+0
+```
+
+Because:
+
+```text
+"Hello" == "Hello"
+```
+
+### Example 2 — Different strings
+
+```c
+char A[] = "Hello";
+char B[] = "World";
+
+int Result = strcmp(A, B);
+
+printf("%d", Result);
+```
+
+The exact non-zero value can vary by implementation, so **don't depend on it being exactly `-1` or `1`**.
+
+Instead, check:
+
+```c
+if (strcmp(A, B) == 0)
+{
+    printf("Both are same");
+}
+else
+{
+    printf("Both are different");
+}
+```
+
+### Why not use `==`?
+
+This is an important point for DSA:
+
+```c
+if (A == B)   // ❌ Don't use this to compare string contents
+```
+
+Use:
+
+```c
+if (strcmp(A, B) == 0)   // ✅
+```
+
+`strcmp()` compares the **characters inside the strings**.
+
+### Simple memory trick
+
+```text
+strlen() → How long?
+strcpy() → Copy
+strcat() → Join
+strcmp() → Compare
+```
+
+### Practice
+
+What will this print?
+
+```c
+char Name1[] = "Gajanand";
+char Name2[] = "Gajanand";
+
+if (strcmp(Name1, Name2) == 0)
+{
+    printf("Same");
+}
+else
+{
+    printf("Different");
+}
+```
+
+Think about it first. Then we can move to the **next string function**.

@@ -1393,3 +1393,327 @@ else
 ```
 
 Think about it first. Then we can move to the **next string function**.
+## Day 2 — Topic 10: `'\0'` in C
+
+### 1. What is `'\0'`?
+
+`'\0'` is called the **null character**.
+
+It marks the **end of a string** in C.
+
+Example:
+
+```c
+char name[] = "Hello";
+```
+
+Memory representation:
+
+```text
+Index:  0    1    2    3    4     5
+       [H]  [e]  [l]  [l]  [o]   [\0]
+```
+
+The `'\0'` tells C:
+
+> “The string ends here.”
+
+---
+
+### 2. Why is `'\0'` Necessary?
+
+Consider:
+
+```c
+char name[] = "Hello";
+```
+
+When you write:
+
+```c
+printf("%s", name);
+```
+
+C starts printing from index `0` and continues until it finds `'\0'`.
+
+```text
+H → e → l → l → o → \0 → Stop
+```
+
+Without `'\0'`, C would not know where the string ends.
+
+---
+
+### 3. String Size Includes `'\0'`
+
+The string:
+
+```c
+"Hello"
+```
+
+contains 5 visible characters:
+
+```text
+H e l l o
+```
+
+But the array requires 6 spaces:
+
+```text
+H e l l o \0
+```
+
+Therefore:
+
+```c
+char name[6] = "Hello";
+```
+
+Correct.
+
+```c
+char name[5] = "Hello";
+```
+
+Incorrect because there is no space for `'\0'`.
+
+---
+
+### 4. Character `'\0'` vs Character `'0'`
+
+These are different:
+
+```c
+'\0'
+```
+
+means the **null character**.
+
+```c
+'0'
+```
+
+means the character **zero**.
+
+| Character | Meaning                 |
+| --------- | ----------------------- |
+| `'\0'`    | String-ending character |
+| `'0'`     | Digit zero              |
+| `0`       | Integer zero            |
+
+Example:
+
+```c
+printf("%d\n", '\0');
+printf("%d\n", '0');
+```
+
+Typical output:
+
+```text
+0
+48
+```
+
+The value of `'0'` is different from `'\0'`.
+
+---
+
+### 5. Manually Creating a String
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    char name[6];
+
+    name[0] = 'H';
+    name[1] = 'e';
+    name[2] = 'l';
+    name[3] = 'l';
+    name[4] = 'o';
+    name[5] = '\0';
+
+    printf("%s\n", name);
+
+    return 0;
+}
+```
+
+### Output
+
+```text
+Hello
+```
+
+The last assignment is important:
+
+```c
+name[5] = '\0';
+```
+
+It marks the end of the string.
+
+---
+
+### 6. What Happens Without `'\0'`?
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    char name[5];
+
+    name[0] = 'H';
+    name[1] = 'e';
+    name[2] = 'l';
+    name[3] = 'l';
+    name[4] = 'o';
+
+    printf("%s\n", name);
+
+    return 0;
+}
+```
+
+This is **incorrect** for printing with `%s`.
+
+The array does not contain `'\0'`, so `printf()` may continue reading memory beyond the array.
+
+Possible output:
+
+```text
+Hello����
+```
+
+or another unexpected result.
+
+This is called **undefined behavior**.
+
+---
+
+### 7. Adding `'\0'` to a Character Array
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    char word[10];
+
+    word[0] = 'C';
+    word[1] = 'o';
+    word[2] = 'd';
+    word[3] = 'e';
+    word[4] = '\0';
+
+    printf("%s\n", word);
+
+    return 0;
+}
+```
+
+### Output
+
+```text
+Code
+```
+
+Even though the array size is 10, the string ends at index `4`.
+
+```text
+Index:  0   1   2   3    4
+       [C] [o] [d] [e]  [\0]
+```
+
+---
+
+### 8. Traversing Until `'\0'`
+
+Instead of using a fixed number, we can stop when we find `'\0'`.
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    char name[] = "Hello";
+
+    int i = 0;
+
+    while(name[i] != '\0')
+    {
+        printf("%c\n", name[i]);
+        i++;
+    }
+
+    return 0;
+}
+```
+
+### Output
+
+```text
+H
+e
+l
+l
+o
+```
+
+### Logic
+
+```text
+Start at index 0
+      ↓
+Is name[i] not '\0'?
+      ↓
+Yes → Print character → Move to next index
+      ↓
+No → Stop
+```
+
+---
+
+### 9. Important Rules
+
+1. Every valid C string must end with `'\0'`.
+2. String size must include space for `'\0'`.
+3. `%s` expects a null-terminated string.
+4. `'\0'` is not the same as `'0'`.
+5. Do not manually access beyond the array size.
+6. A character array is not automatically a valid string unless it contains `'\0'`.
+
+### Example
+
+```c
+char name[20] = "Gajanand";
+```
+
+Only these positions are used:
+
+```text
+G a j a n a n d \0
+```
+
+The remaining positions are unused, but the string is valid.
+
+---
+
+## Practice Problems
+
+1. Create a string manually using individual characters and `'\0'`.
+2. Print each character of a string until `'\0'`.
+3. Count the characters in `"Programming"` using a `while` loop.
+4. Explain why `char name[5] = "Hello";` is incorrect.
+5. Differentiate between `'\0'`, `'0'`, and `0`.
+6. Create a character array of size 20 and store `"C Language"` in it.
+7. Print a string without using `%s`.
+8. Find the last character before `'\0'`.
+9. Count the number of characters before `'\0'`.
+10. Reverse a string using indexes and stop at `'\0'`.
+
+

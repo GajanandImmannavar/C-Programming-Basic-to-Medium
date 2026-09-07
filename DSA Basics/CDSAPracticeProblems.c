@@ -412,27 +412,27 @@
 
 
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int main()
-{   int p;
-    int q;
-    printf("Enter First Num: ");
-    scanf("%d",&p);
+// int main()
+// {   int p;
+//     int q;
+//     printf("Enter First Num: ");
+//     scanf("%d",&p);
 
-    printf("Enter Second Number: ");
-    scanf("%d",&q);
+//     printf("Enter Second Number: ");
+//     scanf("%d",&q);
     
-    if(p%q==0)
-    {
-        printf("number is a multiple of another number\n");
-    }
-    else{
-        printf("Not\n");
-    }
+//     if(p%q==0)
+//     {
+//         printf("number is a multiple of another number\n");
+//     }
+//     else{
+//         printf("Not\n");
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
 
 // Input Number
 //        ↓
@@ -449,3 +449,67 @@ int main()
 
 // Count the digits of a number
 
+// Second Highest Number
+
+
+// #include <stdio.h>
+
+// int main()
+// {
+//     int arr[10] = {1,2,3,4,5,6,7,8,9,0};
+
+//     int first = arr[0];
+//     int second = arr[1];
+
+//     // if(first < second)
+//     // {
+//     //     int temp = first;
+//     //     first = second;
+//     //     second = temp;
+//     // }
+
+//     for(int i=0; i<10; i++)
+//     {
+//         if(arr[i]>first)
+//         {
+//             second = first;
+//             first = arr[i];
+//         }
+//         else if(arr[i]>second && arr[i]!= first)
+//         {
+//             arr[i] = second;
+//         }
+//     }
+//     printf("First is %d\n",first);
+//     printf("Second is %d\n",second);
+//     return 0;
+// }
+
+
+
+#include <stdio.h>
+
+int main()
+{   
+    int arr[10]={1,2,3,4,5,6,7,8,9,0};
+    int first = arr[0];
+    int second=arr[1];
+
+    for(int i=0; i<10; i++)
+    {
+        if(arr[i] > first)
+        {   
+            second = first;
+            first = arr[i];
+        }
+        else if(arr[i]>second && arr[i]!=first){
+            second = arr[i];
+        }
+    }
+
+    printf("First is: %d\n",first);
+    printf("Second is : %d\n",second);
+
+
+    return 0;
+}
